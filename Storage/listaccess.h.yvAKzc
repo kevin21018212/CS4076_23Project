@@ -1,0 +1,18 @@
+#ifndef LISTACCESS_H
+#define LISTACCESS_H
+
+#include "FoodClasses/ingredient.h"
+#include "Storage/arraylist.h"
+
+class listaccess
+{
+
+
+public:
+    listaccess();
+   ArrayList<ingredient>* defaultinput;
+   ArrayList<ingredient> *selectedinput;
+    virtual void inputIngredients(ArrayList < ingredient > &input, ArrayList < ingredient > & selected);
+};
+
+#endif // LISTACCESS_H

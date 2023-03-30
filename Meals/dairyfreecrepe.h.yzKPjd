@@ -1,0 +1,11 @@
+#ifndef DAIRYFREECREPE_H
+#define DAIRYFREECREPE_H
+
+
+class dairyfreecrepe
+{
+public:
+    dairyfreecrepe();
+};
+
+#endif // DAIRYFREECREPE_H

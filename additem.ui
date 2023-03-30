@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>additem</class>
+ <widget class="QWidget" name="additem">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>504</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>351</width>
+     <height>441</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="NameLabel">
+        <property name="text">
+         <string>Name</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QTextEdit" name="textEdit"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="Calories">
+        <property name="text">
+         <string>Calories</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QTextEdit" name="textEdit_2"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="DietaryRestriction">
+        <property name="text">
+         <string>Dietary Restriction</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QTextEdit" name="textEdit_3"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_7">
+      <item>
+       <widget class="QLabel" name="Protien">
+        <property name="text">
+         <string>Protien</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="Carbs">
+        <property name="text">
+         <string>Carbs </string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="Fat">
+        <property name="text">
+         <string>Fat</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QTextEdit" name="textEdit_6"/>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="textEdit_5"/>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="textEdit_4"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>Additem</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

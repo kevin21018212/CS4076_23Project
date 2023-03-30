@@ -1,0 +1,16 @@
+#ifndef LISTACCESS_H
+#define LISTACCESS_H
+
+
+#include "edititem.h"
+class listaccess
+{
+public:
+    listaccess();
+    edititem *thisEditItem;
+    ArrayList<ingredient> defaultinput;
+    ArrayList<ingredient> *selectedinput;
+    virtual void inputIngredients(ArrayList<ingredient> input,ArrayList<ingredient> &selectedinput);
+};
+
+#endif // LISTACCESS_H

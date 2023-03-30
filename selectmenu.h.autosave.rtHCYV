@@ -1,0 +1,26 @@
+#ifndef SELECTMENU_H
+#define SELECTMENU_H
+
+#include <QWidget>
+
+namespace Ui {
+class selectmenu;
+}
+
+class selectmenu : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit selectmenu(QWidget *parent = nullptr);
+    ~selectmenu();
+    void loadI
+
+private slots:
+    void on_pushButton_2_clicked();
+    
+private:
+    Ui::selectmenu *ui;
+};
+
+#endif // SELECTMENU_H

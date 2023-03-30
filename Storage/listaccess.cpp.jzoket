@@ -1,0 +1,17 @@
+#include "listaccess.h"
+
+listaccess::listaccess()
+{
+
+}
+
+
+
+
+ void listaccess::inputIngredients(ArrayList < ingredient > &input, ArrayList < ingredient > & selected) {
+    //copys over the defaults not modifed so no pointer needed
+  defaultinput = &input;
+  //sets a pointer address of selected ingredients to allow edits to the list
+  selectedinput = & selected;
+
+}

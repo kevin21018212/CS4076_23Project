@@ -1,0 +1,11 @@
+#ifndef TURKEYWRAP_H
+#define TURKEYWRAP_H
+
+
+class turkeywrap
+{
+public:
+    turkeywrap();
+};
+
+#endif // TURKEYWRAP_H

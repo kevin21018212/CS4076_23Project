@@ -1,0 +1,386 @@
+#include "selectmenu.h"
+
+#include "ui_selectmenu.h"
+
+selectmenu::selectmenu(QWidget * parent):
+  QWidget(parent),
+  ui(new Ui::selectmenu) {
+    ui -> setupUi(this);
+  }
+
+selectmenu::~selectmenu() {
+  delete ui;
+}
+
+void selectmenu::on_pushButton_2_clicked() {
+    //displays next set of items in arraylist if at end loops
+  if (canNext) {
+    loadIngredients();
+  } else {
+    currposition = 1;
+    count = 0;
+    canNext = true;
+    loadIngredients();
+  }
+}
+
+void selectmenu::updateCheckbox() {
+    //loop throught each checkbox
+  for (int i = 0; i < ui -> LabelContainer -> count(); ++i) {
+    QLayout * layout = ui -> LabelContainer -> layout();
+    QCheckBox * label = qobject_cast < QCheckBox * > (layout -> itemAt(i) -> widget());
+    //loop through selected ingredients and if they match checkbox set to checked
+    for (int j = 1; j < ptr -> getLength() + 1; j++) {
+      if (ptr -> getEntry(j).getName() == label -> text().toStdString()) {
+        label -> setChecked(true);
+        break;
+      } else {
+        label -> setChecked(false);
+      }
+
+    }
+  }
+  //stops checkbox on upate from occuring when chaninging labels
+  updatecomplete=true;
+}
+
+void selectmenu::inputIngredients(ArrayList < ingredient > input, ArrayList < ingredient > & selectedinput) {
+    //copys over the defaults not modifed so no pointer needed
+  ingredients = input;
+  //gets pointed of selected ingredients to allow edits to the list
+  ptr = & selectedinput;
+  //replaces checkbox labels with ing
+  loadIngredients();
+}
+
+
+void selectmenu::loadIngredients() {
+
+  for (int i = 0; i < ui -> LabelContainer -> count(); ++i) {
+
+    QLayout * layout = ui -> LabelContainer -> layout();
+    QCheckBox * label = qobject_cast < QCheckBox * > (layout -> itemAt(i) -> widget());
+    if (currposition < ingredients.getLength()) {
+
+      string grabbedString = ingredients.getEntry(currposition).getName();
+      QString qstr = QString::fromStdString(grabbedString);
+
+      label -> setText(qstr);
+      currposition++;
+
+    } else {
+      label -> setText("");
+
+      canNext = false;
+    }
+
+  }
+  //update the checkboxes
+  updateCheckbox();
+
+}
+
+
+
+
+
+
+
+void selectmenu::on_checkBox_2_stateChanged(int arg1)
+{
+
+//stops updating labels to default ing list from being changed
+if(updatecomplete){
+     //unchecked
+ if(arg1==0){
+     //loop through selecteding and until find matching string and remove at index
+   for (int j = 1; j <ptr->getLength()+1; j++) {
+       if(ptr->getEntry(j).getName()==ui->checkBox_2->text().toStdString()){
+        ptr->remove(j);
+        break;
+       }
+   }
+ }
+ //checked
+ else{
+   //loop through defaulting until finding matching entery and place in selecteding at new location in arr list
+   for (int j = 0; j <ingredients.getLength()+1; j++) {
+       //for debugging
+       string checkboxstr=ui->checkBox_2->text().toStdString();
+       string entrystr=ingredients.getEntry(j).getName();
+     if(checkboxstr==entrystr){
+       ptr->insert(ptr->getLength()+1,ingredients.getEntry(j));
+       break;
+     }
+ }
+ }
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///This is a copy of the other checkboxes there was no easy way to wrap this
+void selectmenu::on_checkBox_3_stateChanged(int arg1)
+{
+    if(updatecomplete){
+     if(arg1==0){
+       for (int j = 1; j <ptr->getLength()+1; j++) {
+           if(ptr->getEntry(j).getName()==ui->checkBox_3->text().toStdString()){
+            ptr->remove(j);
+            break;
+           }
+       }
+     }
+     //checked
+     else{
+
+       for (int j = 0; j <ingredients.getLength()+1; j++) {
+           string checkboxstr=ui->checkBox_3->text().toStdString();
+           string entrystr=ingredients.getEntry(j).getName();
+         if(checkboxstr==entrystr){
+           ptr->insert(ptr->getLength()+1,ingredients.getEntry(j));
+           break;
+         }
+     }
+     }
+    }
+
+}
+
+
+void selectmenu::on_checkBox_4_stateChanged(int arg1)
+{
+    if(updatecomplete){
+     if(arg1==0){
+       for (int j = 1; j <ptr->getLength()+1; j++) {
+           if(ptr->getEntry(j).getName()==ui->checkBox_4->text().toStdString()){
+            ptr->remove(j);
+            break;
+           }
+       }
+     }
+     //checked
+     else{
+
+       for (int j = 0; j <ingredients.getLength()+1; j++) {
+           string checkboxstr=ui->checkBox_4->text().toStdString();
+           string entrystr=ingredients.getEntry(j).getName();
+         if(checkboxstr==entrystr){
+           ptr->insert(ptr->getLength()+1,ingredients.getEntry(j));
+           break;
+         }
+     }
+     }
+    }
+
+}
+
+
+void selectmenu::on_checkBox_5_stateChanged(int arg1)
+{
+    if(updatecomplete){
+     if(arg1==0){
+       for (int j = 1; j <ptr->getLength()+1; j++) {
+           if(ptr->getEntry(j).getName()==ui->checkBox_5->text().toStdString()){
+            ptr->remove(j);
+            break;
+           }
+       }
+     }
+     //checked
+     else{
+
+       for (int j = 0; j <ingredients.getLength()+1; j++) {
+           string checkboxstr=ui->checkBox_5->text().toStdString();
+           string entrystr=ingredients.getEntry(j).getName();
+         if(checkboxstr==entrystr){
+           ptr->insert(ptr->getLength()+1,ingredients.getEntry(j));
+           break;
+         }
+     }
+     }
+    }
+}
+
+
+void selectmenu::on_checkBox_6_stateChanged(int arg1)
+{
+    if(updatecomplete){
+     if(arg1==0){
+       for (int j = 1; j <ptr->getLength()+1; j++) {
+           if(ptr->getEntry(j).getName()==ui->checkBox_6->text().toStdString()){
+            ptr->remove(j);
+            break;
+           }
+       }
+     }
+     //checked
+     else{
+
+       for (int j = 0; j <ingredients.getLength()+1; j++) {
+           string checkboxstr=ui->checkBox_6->text().toStdString();
+           string entrystr=ingredients.getEntry(j).getName();
+         if(checkboxstr==entrystr){
+           ptr->insert(ptr->getLength()+1,ingredients.getEntry(j));
+           break;
+         }
+     }
+     }
+    }
+}
+
+
+void selectmenu::on_checkBox_7_stateChanged(int arg1)
+{
+    if(updatecomplete){
+     if(arg1==0){
+       for (int j = 1; j <ptr->getLength()+1; j++) {
+           if(ptr->getEntry(j).getName()==ui->checkBox_7->text().toStdString()){
+            ptr->remove(j);
+            break;
+           }
+       }
+     }
+     //checked
+     else{
+
+       for (int j = 0; j <ingredients.getLength()+1; j++) {
+           string checkboxstr=ui->checkBox_7->text().toStdString();
+           string entrystr=ingredients.getEntry(j).getName();
+         if(checkboxstr==entrystr){
+           ptr->insert(ptr->getLength()+1,ingredients.getEntry(j));
+           break;
+         }
+     }
+     }
+    }
+}
+
+
+void selectmenu::on_checkBox_8_stateChanged(int arg1)
+{
+    if(updatecomplete){
+     if(arg1==0){
+       for (int j = 1; j <ptr->getLength()+1; j++) {
+           if(ptr->getEntry(j).getName()==ui->checkBox_8->text().toStdString()){
+            ptr->remove(j);
+            break;
+           }
+       }
+     }
+     //checked
+     else{
+
+       for (int j = 0; j <ingredients.getLength()+1; j++) {
+           string checkboxstr=ui->checkBox_8->text().toStdString();
+           string entrystr=ingredients.getEntry(j).getName();
+         if(checkboxstr==entrystr){
+           ptr->insert(ptr->getLength()+1,ingredients.getEntry(j));
+           break;
+         }
+     }
+     }
+    }
+}
+
+
+void selectmenu::on_checkBox_9_stateChanged(int arg1)
+{
+    if(updatecomplete){
+     if(arg1==0){
+       for (int j = 1; j <ptr->getLength()+1; j++) {
+           if(ptr->getEntry(j).getName()==ui->checkBox_9->text().toStdString()){
+            ptr->remove(j);
+            break;
+           }
+       }
+     }
+     //checked
+     else{
+
+       for (int j = 0; j <ingredients.getLength()+1; j++) {
+           string checkboxstr=ui->checkBox_9->text().toStdString();
+           string entrystr=ingredients.getEntry(j).getName();
+         if(checkboxstr==entrystr){
+           ptr->insert(ptr->getLength()+1,ingredients.getEntry(j));
+           break;
+         }
+     }
+     }
+    }
+}
+
+
+void selectmenu::on_checkBox_10_stateChanged(int arg1)
+{
+    if(updatecomplete){
+     if(arg1==0){
+       for (int j = 1; j <ptr->getLength()+1; j++) {
+           if(ptr->getEntry(j).getName()==ui->checkBox_10->text().toStdString()){
+            ptr->remove(j);
+            break;
+           }
+       }
+     }
+     //checked
+     else{
+
+       for (int j = 0; j <ingredients.getLength()+1; j++) {
+           string checkboxstr=ui->checkBox_10->text().toStdString();
+           string entrystr=ingredients.getEntry(j).getName();
+         if(checkboxstr==entrystr){
+           ptr->insert(ptr->getLength()+1,ingredients.getEntry(j));
+           break;
+         }
+     }
+     }
+    }
+}
+
+
+void selectmenu::on_checkBox_stateChanged(int arg1)
+{
+    if(updatecomplete){
+     if(arg1==0){
+       for (int j = 1; j <ptr->getLength()+1; j++) {
+           if(ptr->getEntry(j).getName()==ui->checkBox->text().toStdString()){
+            ptr->remove(j);
+            break;
+           }
+       }
+     }
+     //checked
+     else{
+
+       for (int j = 0; j <ingredients.getLength()+1; j++) {
+           string checkboxstr=ui->checkBox->text().toStdString();
+           string entrystr=ingredients.getEntry(j).getName();
+         if(checkboxstr==entrystr){
+           ptr->insert(ptr->getLength()+1,ingredients.getEntry(j));
+           break;
+         }
+     }
+     }
+    }
+}
+

@@ -1,0 +1,122 @@
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ingredientinit();
+    ui->setupUi(this);
+
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+
+}
+
+
+//creates some generic ingredients and puts them into a default list
+void MainWindow::ingredientinit(){
+
+  ingredient milk(100,"dairy","Milk",6,9,6);
+  ingredient butter(32,"dairy","Butter",0,0,4);
+  ingredient egg(72,"dairy","Egg",6,0,5);
+  ingredient sugar(16,"","Sugar",4,0,0);
+  ingredient flour(440,"grain","Flour",0,0,14);
+  ingredient oliveOil(119,"","Olive Oil",0,0,14);
+  ingredient rice(160,"","Rice",3,36,1);
+  ingredient vegetableOil(120,"","vegetable Oil",0,0,14);
+  ingredient bread(120,"gluten","Bread",4,22,2);
+  ingredient cheddar(100,"meat","Cheddar",1,10,7);
+  ingredient salmon(280,"fish","Salmon",36,1,15);
+  ingredient parmesan(21,"dairy","Parmesan",2,0,1);
+  ingredient lemon(24,"","Lemon",1,8,0);
+  ingredient bacon(42,"meat","Bacon",5,0,7);
+  ingredient groundBeef(200,"meat","Ground Beef",23,0,12);
+  ingredient chickenBreast(195,"meat","Chicken Breast",24,0,11);
+  ingredient chickenThigh(250,"meat","Chicken Thigh",19,0,19);
+  ingredient honey(21,"","Honey",0,6,0);
+  defaultIngredients.insert(1,milk);
+  defaultIngredients.insert(2,butter);
+  defaultIngredients.insert(3,egg);
+  defaultIngredients.insert(4,sugar);
+  defaultIngredients.insert(5,flour);
+  defaultIngredients.insert(6,oliveOil);
+  defaultIngredients.insert(7,rice);
+  defaultIngredients.insert(8,vegetableOil);
+  defaultIngredients.insert(9,bread);
+  defaultIngredients.insert(10,cheddar);
+  defaultIngredients.insert(11,salmon);
+  defaultIngredients.insert(12,parmesan);
+  defaultIngredients.insert(13,lemon);
+  defaultIngredients.insert(14,bacon);
+  defaultIngredients.insert(15,groundBeef);
+  defaultIngredients.insert(16,chickenBreast);
+  defaultIngredients.insert(17,chickenThigh);
+  defaultIngredients.insert(18,honey);
+
+}
+
+//opens a window that lets you select ingredients from checkbox
+void MainWindow::on_pushButton_clicked()
+{
+
+     selectw->inputIngredients(defaultIngredients,heldIngredients);
+
+      selectw->show();
+      selectw->loadIngredients();
+
+}
+//opens a window that lets you edit your held ingredients
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    editw->inputIngredients(defaultIngredients,heldIngredients);
+     editw->show();
+}
+//opens a window that lets you create your own ingedient
+void MainWindow::on_pushButton_3_clicked()
+{
+    addw->inputIngredients(defaultIngredients,heldIngredients);
+     addw->show();
+}
+//program started
+void MainWindow::on_pushButton_4_clicked()
+{
+   mealdisplay->show();
+   this->hide();
+}
+
+
+//SHALLOW COPY
+//lets you add ingredients to the heldIngredients arraylist
+void MainWindow::on_pushButton_5_clicked()
+{
+    //getsinput and converts to qstring
+    QString qstr =this->ui->textEdit->toPlainText();
+    string input = qstr.toStdString();
+ //checks if ingredient exists in our default ingredients
+    for(int i=0;i<defaultIngredients.getLength();i++){
+        //if it exists add to help ingredients
+        if(input==defaultIngredients.getEntry(i).getName()){
+          this->ui->TextInputLabel->setText("Success add another?");
+          ingredient tobeinsert=defaultIngredients.getEntry(i);
+          heldIngredients.insert(count,tobeinsert);
+          count++;
+          break;
+
+        }
+        else{
+          this->ui->TextInputLabel->setText("That Ingredient Dosent Exist");
+        }
+
+    }
+}
+
+
+
+
+
+

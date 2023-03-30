@@ -1,0 +1,11 @@
+#ifndef DIARYFREECREPES_H
+#define DIARYFREECREPES_H
+
+
+class diaryfreecrepes
+{
+public:
+    diaryfreecrepes();
+};
+
+#endif // DIARYFREECREPES_H

@@ -1,0 +1,67 @@
+#include "edititem.h"
+
+
+#include "ui_edititem.h"
+
+edititem::edititem(QWidget * parent):
+  QWidget(parent),
+  ui(new Ui::edititem) {
+    ui -> setupUi(this);
+
+  }
+
+edititem::~edititem() {
+  delete ui;
+}
+
+void edititem::inputIngredients(ArrayList < ingredient > & selectedinput) {
+  ptr = & selectedinput;
+  getUpdateCount();
+
+}
+
+int edititem::getUpdateCount() {
+  if (count < ptr -> getLength()) {
+    count++;
+  } else {
+    count = 1;
+  }
+  return count;
+}
+
+void edititem::on_pushButton_clicked() {
+
+  string grabbedString = ptr -> getEntry(getUpdateCount()).getName();
+  QString qstr = QString::fromStdString(grabbedString);
+  ui -> textEdit -> setText(qstr);
+  int i = ptr -> getEntry(count).getcal();
+  qstr = QString::number(i);
+  ui -> textEdit_2 -> setText(qstr);
+  grabbedString = ptr -> getEntry(count).getType();
+  qstr = QString::fromStdString(grabbedString);
+  ui -> textEdit_3 -> setText(qstr);
+  i = ptr -> getEntry(count).protienValue;
+  qstr = QString::number(i);
+  ui -> textEdit_4 -> setText(qstr);
+  i = ptr -> getEntry(count).protienValue;
+  qstr = QString::number(i);
+  ui -> textEdit_5 -> setText(qstr);
+  i = ptr -> getEntry(count).sugarValue;
+  qstr = QString::number(i);
+  ui -> textEdit_6 -> setText(qstr);
+
+}
+
+//POINTER 
+//updates the item after commit button pressed
+void edititem::on_pushButton_2_clicked() {
+  //gets the values from the ui and stores them in vars
+  string name = ui -> textEdit -> toPlainText().toStdString();
+  int cal = ui -> textEdit_2 -> toPlainText().toInt();
+  string diet = ui -> textEdit_3 -> toPlainText().toStdString();
+  int pro = ui -> textEdit_4 -> toPlainText().toInt();
+  int carb = ui -> textEdit_5 -> toPlainText().toInt();
+  int sug = ui -> textEdit_6 -> toPlainText().toInt();
+  //updates the arraylist with a new ingrdient that has the changes
+  ptr -> replace(count, ingredient(cal, diet, name, pro, carb, sug));
+}

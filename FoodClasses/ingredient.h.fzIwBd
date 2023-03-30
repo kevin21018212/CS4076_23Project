@@ -1,0 +1,32 @@
+#ifndef INGREDIENT_H
+#define INGREDIENT_H
+#include "FoodClasses/diet.h"
+#include "FoodClasses/type.h"
+#include "Storage/arraylist.h"
+#include <string> // for string class
+using namespace std;
+
+class ingredient:diet,type
+{
+    int calories;
+    string name;
+    string diet;
+
+public:
+
+    ingredient(int calories,string diet,string name);
+    ingredient(int calories,string diet,string name, int protien,int carbs,int sugar);
+    ingredient();
+    string getName();
+
+    mainthree getType();
+    void setRestriction();
+    void setCalories(int cal);
+
+
+    friend void updateIngredient();
+  friend void  displayInfo(ArrayList<ingredient> input,edititem objinput);
+};
+
+
+#endif // INGREDIENT_H

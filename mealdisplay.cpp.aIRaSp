@@ -1,0 +1,156 @@
+#include "mealdisplay.h"
+#include "Storage/mealloader.h"
+#include "ui_mealdisplay.h"
+
+mealdisplay::mealdisplay(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::mealdisplay)
+{
+    ui->setupUi(this);
+}
+
+mealdisplay::~mealdisplay()
+{
+    delete ui;
+
+}
+
+void mealdisplay::loadmeals(mealloader mealLoader){
+
+    QPalette redpallette = ui->label->palette();
+    QPalette greypallette = ui->label->palette();
+    greypallette.setColor(QPalette::WindowText, QColorConstants::Gray);
+    redpallette.setColor(QPalette::WindowText, QColorConstants::Red);
+
+
+    for (int i = 0; i < ui -> LabelContainer -> count(); ++i) {
+
+      QLayout * layout = ui -> LabelContainer -> layout();
+      QLabel * label = qobject_cast < QLabel * > (layout -> itemAt(i) -> widget());
+
+    if(i<mealLoader.displaySize){
+      string grabbedString = mealLoader.MealsToDisplay[i]->getName();
+      QString qstr = QString::fromStdString(grabbedString);
+      label->setText(qstr);
+      label->setPalette(redpallette);
+    }
+    else{
+        label->setText("ERROR");
+    }
+
+
+
+    if(mealLoader.canCook(i)){
+        label->setPalette(greypallette);
+    }
+
+    }
+
+    //only display based on
+
+}
+
+
+void getmealtype(mealloader& mealloader,int findtype){
+   mealloader.displaySize=0;
+
+
+
+   if(findtype!=4&&findtype!=5){
+  for(int i=0;i<mealloader.mealsize;i++){
+    if(mealloader.Meals[i]->getMealInfo()==findtype){
+       mealloader.MealsToDisplay[mealloader.displaySize]=mealloader.Meals[i];
+       mealloader.displaySize++;
+
+    }
+    }
+   }
+
+  if(findtype==4){
+  for(int i=0;i<mealloader.mealsize;i++){
+   if(mealloader.Meals[i]->getHealthinfo().hasRestrictions("HighProtien")){
+     mealloader.MealsToDisplay[mealloader.displaySize]=mealloader.Meals[i];
+     mealloader.displaySize++;
+   }
+  }
+   if(findtype==5){
+   for(int i=0;i<mealloader.mealsize;i++){
+    if(mealloader.Meals[i]->getHealthinfo().hasRestrictions("LowCarb")){
+      mealloader.MealsToDisplay[mealloader.displaySize]=mealloader.Meals[i];
+      mealloader.displaySize++;
+    }
+   }
+   }
+}
+
+}
+
+
+
+
+
+void mealdisplay::on_BreakFastRadio_clicked(bool checked)
+{
+   mealloader mealLoader(*selectedinput);
+  if(checked){
+      mealLoader.updateMealInfo();
+      getmealtype(mealLoader,1);
+      loadmeals(mealLoader);
+
+  }
+}
+
+
+void mealdisplay::on_DinnerRadio_clicked(bool checked)
+{
+    mealloader mealLoader(*selectedinput);
+   if(checked){
+       mealLoader.updateMealInfo();
+       getmealtype(mealLoader,3);
+       loadmeals(mealLoader);
+   }
+
+}
+
+
+void mealdisplay::on_HighProtienRadio_clicked(bool checked)
+{
+    mealloader mealLoader(*selectedinput);
+   if(checked){
+       mealLoader.updateMealInfo();
+       getmealtype(mealLoader,4);
+       loadmeals(mealLoader);
+   }
+
+}
+
+void mealdisplay::on_LowCarbRadio_clicked(bool checked)
+{
+    mealloader mealLoader(*selectedinput);
+   if(checked){
+       mealLoader.updateMealInfo();
+       getmealtype(mealLoader,5);
+       loadmeals(mealLoader);
+   }
+}
+
+void mealdisplay::on_pushButton_3_clicked()
+{
+
+
+}
+
+
+
+
+void mealdisplay::on_LunchRadio_clicked(bool checked)
+{
+    mealloader mealLoader(*selectedinput);
+   if(checked){
+       mealLoader.updateMealInfo();
+       getmealtype(mealLoader,2);
+       loadmeals(mealLoader);
+   }
+
+}
+

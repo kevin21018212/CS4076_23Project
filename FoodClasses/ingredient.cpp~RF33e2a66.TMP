@@ -1,0 +1,78 @@
+#include "ingredient.h"
+
+ingredient::ingredient(){
+
+
+}
+
+
+//CONSTRUCTOR IMPLEMENTATION
+//updates values in ingredient and sets setrestrictions in diet and setsvalues in type
+ingredient::ingredient(int calories,string diet,string name,int protien,int carbs,int sugar){
+    this->calories=calories;
+    this->name=name;
+    type::setValue(None,protien,carbs,sugar);
+    this->diet=diet;
+    getBreakdownValue();
+
+
+}
+
+//gets private variables that should not be normally modified
+string ingredient::getName(){
+    return name;
+}
+string ingredient::getType(){
+    return diet;
+}
+
+int ingredient::getcal(){
+      return calories;
+}
+
+
+//OPERATOR OVERLOADING
+//this is used for the meals to create a sort of super ingredient which is used to tell the meals dietary info,calorie info,included ingredients, and other functions
+//while this could be implimened in meal class this is a much simpler way to get these values
+ingredient operator+(ingredient const& one, ingredient const& two)
+   {
+    ingredient returning;
+    //generic adding
+    returning.name=one.name+", "+two.name;
+    returning.calories=one.calories+two.calories;
+    returning.protienValue=one.protienValue+two.protienValue;
+    returning.carbValue=one.carbValue+two.carbValue;
+    returning.sugarValue=one.sugarValue+two.sugarValue;
+
+   //update enum in type after additions
+    returning.getBreakdownValue();
+
+    //need to do twice for each ings diet
+    returning.diet=one.diet;
+    returning.setRestriction();
+
+    returning.diet=two.diet;
+    returning.setRestriction();
+
+    return returning;
+   }
+
+
+//Sets restrictions in diet
+void ingredient::setRestriction(){
+  if(diet=="dairy"||diet=="cheese"){
+    setDairyFree();
+  }
+  if(diet=="fish"||diet=="swine"||diet=="poultry"){
+    setVegan();
+  }
+  if(diet=="swine"||diet=="poultry"){
+     setPescatarian();
+    }
+  if(diet=="baking"||diet=="grain"){
+     setGlutanFree();
+  }
+  if(diet=="sweetener"||diet=="candy"){
+     setSugarFree();
+  }
+}

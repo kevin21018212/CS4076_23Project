@@ -1,0 +1,45 @@
+#ifndef MEALTEMPLATE_H
+#define MEALTEMPLATE_H
+#include "FoodClasses/ingredient.h"
+
+
+#include "Storage/arraylist.h"
+
+
+#include <string>
+using namespace std;
+class mealtemplate
+{
+protected:
+       ArrayList<ingredient> ingredients;
+
+        struct mealdata
+        {
+            //no meal needs more than 128 minutes
+            unsigned int cooktime: 7;
+           //pos doesnt need to go above 32
+        };
+
+        //contains mealtype only 1 of these should exist
+        union mealinfo {
+            int mealtype;
+            char* mealtypename;
+        };
+private:
+   int pos=1;
+public:
+    mealtemplate();
+    virtual string printSteps()=0;
+    virtual int getTime()=0;
+    virtual ingredient getHealthinfo()=0;
+    virtual string getName()=0;
+    virtual int getMealinfo();
+    bool contains(string checklist);  
+    bool canCook(ArrayList<ingredient> input);
+    void addmealingredient(ingredient input);
+    ArrayList<string> requiredIngredients;
+
+    friend void getmealtype(mealloader&,int findtype);
+};
+
+#endif // MEALTEMPLATE_H

@@ -1,0 +1,72 @@
+#include "edititem.h"
+
+
+#include "ui_edititem.h"
+
+edititem::edititem(QWidget * parent):
+  QWidget(parent),
+  ui(new Ui::edititem) {
+    ui -> setupUi(this);
+
+  }
+
+edititem::~edititem() {
+  delete ui;
+}
+
+//POINTERS ADDRESSES
+//VIRTUAL FUNCTIONOVERWRITE THE VERSION IN LISTSELECT TO NOT USE INPUT
+//lets a class pass in the address of a ingredient arraylist which is linked to a pointer
+//this lets us make changes inside the class that is reflected in the main input class
+void edititem::inputIngredients(ArrayList < ingredient > & input,ArrayList < ingredient > & selected) {
+   selectedinput =& selected;
+}
+
+ //increments count each time next is pressed wraps after end of list
+int edititem::getUpdateCount() {
+  if (count < selectedinput -> getLength()) {
+    count++;
+  } else {
+    count = 1;
+  }
+  return count;
+}
+
+//POINTER
+//gets the values from array list each time the button is click the count is inc
+void edititem::on_pushButton_clicked() {
+     //gets info from arraylist of ingredients and stores them in value
+    //convers to Qstring accordingly then inputs into ui
+    string grabbedString = selectedinput -> getEntry(getUpdateCount()).getName();
+    QString qstr = QString::fromStdString(grabbedString);
+  ui -> textEdit -> setText(qstr);
+    int i = selectedinput -> getEntry(count).getcal();
+    qstr = QString::number(i);
+  ui -> textEdit_2 -> setText(qstr);
+    grabbedString = selectedinput -> getEntry(count).getType();
+    qstr = QString::fromStdString(grabbedString);
+  ui -> textEdit_3 -> setText(qstr);
+    i = selectedinput -> getEntry(count).getCarb();
+    qstr = QString::number(i);
+  ui -> textEdit_4 -> setText(qstr);
+    i = selectedinput -> getEntry(count).getProtien();
+    qstr = QString::number(i);
+  ui -> textEdit_5 -> setText(qstr);
+    i = selectedinput -> getEntry(count).getSugar();
+    qstr = QString::number(i);
+  ui -> textEdit_6 -> setText(qstr);
+}
+
+//POINTER
+//updates the selected items values after commit button pressed
+void edititem::on_pushButton_2_clicked() {
+  //gets the values from the ui and stores them in vars
+  string name = ui -> textEdit -> toPlainText().toStdString();
+  int cal = ui -> textEdit_2 -> toPlainText().toInt();
+  string diet = ui -> textEdit_3 -> toPlainText().toStdString();
+  int pro = ui -> textEdit_4 -> toPlainText().toInt();
+  int carb = ui -> textEdit_5 -> toPlainText().toInt();
+  int sug = ui -> textEdit_6 -> toPlainText().toInt();
+  //updates the arraylist with a new ingrdient that has the changes from the textbox using replace method
+  selectedinput -> replace(count,ingredient(cal, diet, name, pro, carb, sug));
+}

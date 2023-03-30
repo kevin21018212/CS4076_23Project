@@ -1,0 +1,89 @@
+#include "selectmenu.h"
+
+#include "ui_selectmenu.h"
+
+selectmenu::selectmenu(QWidget * parent):
+  QWidget(parent),
+  ui(new Ui::selectmenu) {
+    ui -> setupUi(this);
+  }
+
+selectmenu::~selectmenu() {
+  delete ui;
+}
+
+void selectmenu::on_pushButton_2_clicked() {
+  if (canNext) {
+    loadIngredients();
+  } else {
+    currposition = 1;
+    count = 0;
+    canNext = true;
+    loadIngredients();
+  }
+}
+
+void selectmenu::updateCheckbox() {
+  for (int i = 0; i < ui -> LabelContainer -> count(); ++i) {
+    QLayout * layout = ui -> LabelContainer -> layout();
+    QCheckBox * label = qobject_cast < QCheckBox * > (layout -> itemAt(i) -> widget());
+    for (int j = 1; j < ptr -> getLength() + 1; j++) {
+      if (ptr -> getEntry(j).getName() == label -> text().toStdString()) {
+        label -> setChecked(true);
+        break;
+      } else {
+        label -> setChecked(false);
+      }
+
+    }
+  }
+}
+
+void selectmenu::inputIngredients(ArrayList < ingredient > input, ArrayList < ingredient > & selectedinput) {
+  ingredients = input;
+  ptr = & selectedinput;
+  loadIngredients();
+}
+
+
+void selectmenu::loadIngredients() {
+
+  for (int i = 0; i < ui -> LabelContainer -> count(); ++i) {
+
+    QLayout * layout = ui -> LabelContainer -> layout();
+    QCheckBox * label = qobject_cast < QCheckBox * > (layout -> itemAt(i) -> widget());
+    if (currposition < ingredients.getLength()) {
+
+      string grabbedString = ingredients.getEntry(currposition).getName();
+      QString qstr = QString::fromStdString(grabbedString);
+
+      label -> setText(qstr);
+      currposition++;
+
+    } else {
+      label -> setText("");
+      label -> hide();
+      canNext = false;
+    }
+
+  }
+  updateCheckbox();
+
+}
+
+void selectmenu::on_checkBox_2_stateChanged(int arg1)
+{
+ //unchecked
+ if(arg1==0){
+
+ }
+ //checked
+ else{
+
+   for (int j = 1; j <ingredients.getLength()+1; j++) {
+     if(ingredients.getEntry(j).getName()==ui->checkBox->text().toStdString()){
+       ptr->insert(ptr->getLength()+1,ingredients.getEntry(j));
+     }
+ }
+}
+

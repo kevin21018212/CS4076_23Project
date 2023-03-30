@@ -1,0 +1,11 @@
+#ifndef BREAKFASTSANDWICH_H
+#define BREAKFASTSANDWICH_H
+
+
+class BreakfastSandwich
+{
+public:
+    BreakfastSandwich();
+};
+
+#endif // BREAKFASTSANDWICH_H
